@@ -1,0 +1,7 @@
+@use "@styles/variables";
+@use "@styles/mixins";
+
+.image {
+    border-radius: variables.$border-radius;
+    cursor: pointer;
+}

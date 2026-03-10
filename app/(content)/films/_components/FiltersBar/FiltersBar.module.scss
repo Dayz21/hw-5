@@ -1,0 +1,54 @@
+@use "@styles/variables";
+@use "@styles/mixins";
+
+.pending {
+    opacity: 0.6;
+    pointer-events: none;
+    transition: opacity 0.15s ease;
+}
+
+.search {
+    display: grid;
+    grid-template-columns: auto max-content;
+    @include mixins.adaptive(
+        gap,
+        variables.$xs-spacing,
+        variables.$s-spacing,
+        variables.$m-spacing,
+        variables.$m-spacing
+    );
+    margin-bottom: variables.$s-spacing;
+}
+
+.filters {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: variables.$xs-spacing;
+    margin-bottom: variables.$m-spacing;
+
+    @media screen and (max-width: 768px) {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+}
+
+.range_filters {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: variables.$xs-spacing;
+    margin-bottom: variables.$l-spacing;
+}
+
+.range_group {
+    display: grid;
+    gap: variables.$xxs-spacing;
+}
+
+.range_pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: variables.$xs-spacing;
+}
+
+.range_pair * {
+    min-width: 100px;
+}

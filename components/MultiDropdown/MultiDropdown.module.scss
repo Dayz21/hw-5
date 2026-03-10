@@ -1,0 +1,48 @@
+@use "@styles/colors";
+@use "@styles/variables";
+
+.dropdown {
+    position: relative;
+}
+
+.dropdown_list {
+    position: absolute;
+    top: calc(100% + 8px);
+    box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.25);
+    width: 100%;
+    background-color: colors.$input-bg-color;
+    z-index: 10;
+    opacity: 0;
+    transform: translateY(20px);
+    pointer-events: none;
+    transition:
+        opacity 0.3s,
+        transform 0.3s;
+    border-radius: variables.$border-radius;
+    max-height: 300px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.dropdown_list.open {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: all;
+}
+
+.dropdown_element {
+    padding: 14px 12px;
+    font-size: 16px;
+    line-height: 20px;
+    color: colors.$primary-text-color;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.dropdown_element:hover {
+    color: colors.$secondary-text-color;
+}
+
+.dropdown_element.active {
+    color: colors.$accent-color;
+}

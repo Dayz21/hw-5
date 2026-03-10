@@ -1,0 +1,32 @@
+@use "@styles/colors";
+
+.nav_button_left,
+.nav_button_right {
+    position: absolute;
+    top: 50%;
+    z-index: 3;
+    background-color: colors.$nav-button-bg-color;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    box-shadow: colors.$nav-button-shadow;
+    cursor: pointer;
+
+    @media screen and (max-width: 425px) {
+        display: none;
+    }
+}
+
+.nav_button_left {
+    left: 0;
+    transform: translate(-50%, -50%);
+}
+
+.nav_button_right {
+    right: 0;
+    transform: translate(50%, -50%);
+}

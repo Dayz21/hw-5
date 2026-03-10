@@ -1,0 +1,65 @@
+@use "@styles/variables.scss";
+@use "@styles/colors";
+
+.loader {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loader__svg {
+    animation: loaderAnimation 1s linear infinite;
+}
+
+.loader__svg path {
+    fill: colors.$accent-color;
+}
+
+.loader_s {
+    padding: 4px;
+}
+
+.loader_s .loader__svg {
+    width: 16px;
+    height: 16px;
+}
+
+.loader_m {
+    padding: 8px;
+}
+
+.loader_m .loader__svg {
+    width: 32px;
+    height: 32px;
+}
+
+.loader_l {
+    padding: 10px;
+}
+
+.loader_l .loader__svg {
+    width: 40px;
+    height: 40px;
+}
+
+@keyframes loaderAnimation {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.primary path {
+    fill: colors.$primary-text-color;
+}
+
+.secondary path {
+    fill: colors.$secondary-text-color;
+}
+
+.accent path {
+    fill: colors.$accent-color;
+}

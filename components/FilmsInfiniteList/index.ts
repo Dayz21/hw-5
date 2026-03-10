@@ -1,0 +1,1 @@
+export { FilmsInfiniteList } from "./FilmsInfiniteList";

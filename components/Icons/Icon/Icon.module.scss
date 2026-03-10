@@ -1,0 +1,24 @@
+@use "@styles/colors";
+
+.icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.3s;
+
+    &.primary path {
+        stroke: colors.$primary-text-color;
+    }
+
+    &.secondary path {
+        stroke: colors.$secondary-text-color;
+    }
+
+    &.accent path {
+        stroke: colors.$accent-text-color;
+    }
+
+    &.disabled path {
+        stroke: colors.$disabled-color;
+    }
+}

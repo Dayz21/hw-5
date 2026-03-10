@@ -1,0 +1,46 @@
+@use "@styles/colors";
+@use "@styles/variables";
+
+.button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: variables.$xxs-spacing;
+    padding: 16px 21px;
+    border-radius: variables.$border-radius;
+    outline: none;
+    border: 1px solid colors.$button-bg-color;
+    background-color: colors.$button-bg-color;
+    transition:
+        background-color 0.3s,
+        border-color 0.3s,
+        transform 0.3s;
+    user-select: none;
+    cursor: pointer;
+
+    &:disabled {
+        background-color: colors.$button-disabled-bg-color;
+        border-color: colors.$button-disabled-bg-color;
+        cursor: not-allowed;
+    }
+
+    &:active:not(:disabled) {
+        background-color: colors.$button-active-bg-color;
+        border-color: colors.$button-active-bg-color;
+        transform: scale(0.95);
+    }
+
+    &.outlined {
+        background-color: colors.$button-outline-bg-color;
+        border-color: colors.$button-active-bg-color;
+    }
+
+    &.outlined:active:not(:disabled) {
+        background-color: colors.$button-outline-bg-color;
+        border-color: colors.$button-active-bg-color;
+    }
+
+    &.loading {
+        padding: 13px 21px;
+    }
+}

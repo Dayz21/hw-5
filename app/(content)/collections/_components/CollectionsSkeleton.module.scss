@@ -1,0 +1,51 @@
+@use "@styles/mixins";
+@use "@styles/variables";
+
+.category {
+    display: flex;
+    flex-direction: column;
+    gap: variables.$m-spacing;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.title_skeleton {
+    width: 160px;
+    height: 28px;
+    border-radius: variables.$border-radius;
+    @include mixins.skeleton;
+}
+
+.button_skeleton {
+    width: 120px;
+    height: 40px;
+    border-radius: variables.$border-radius;
+    @include mixins.skeleton;
+}
+
+.carousel_skeleton {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: variables.$s-spacing;
+    overflow: hidden;
+
+    @media (max-width: 1399px) {
+        grid-template-columns: repeat(2, 1fr);
+
+        & > :last-child {
+            display: none;
+        }
+    }
+
+    @media (max-width: 767px) {
+        grid-template-columns: 1fr;
+
+        & > :nth-child(n + 2) {
+            display: none;
+        }
+    }
+}

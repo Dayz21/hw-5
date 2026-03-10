@@ -1,0 +1,44 @@
+@use "@styles/variables";
+
+.page {
+    padding-bottom: variables.$xl-spacing;
+}
+
+.title {
+    margin-top: variables.$xl-spacing;
+    margin-bottom: variables.$s-spacing;
+}
+
+.subtitle {
+    margin-bottom: variables.$l-spacing;
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: variables.$xl-spacing;
+}
+
+.category {
+    display: flex;
+    flex-direction: column;
+    gap: variables.$m-spacing;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: variables.$m-spacing;
+}
+
+.empty {
+    margin-top: variables.$xxs-spacing;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    margin-top: variables.$xl-spacing;
+}

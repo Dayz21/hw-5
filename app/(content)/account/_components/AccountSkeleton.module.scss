@@ -1,0 +1,22 @@
+@use "@styles/mixins";
+@use "@styles/variables";
+
+.row_skeleton {
+    width: 100%;
+    height: 24px;
+    border-radius: variables.$border-radius;
+    @include mixins.skeleton;
+}
+
+.actions_skeleton {
+    display: flex;
+    gap: variables.$s-spacing;
+    margin-top: variables.$m-spacing;
+}
+
+.button_skeleton {
+    width: 120px;
+    height: 52px;
+    border-radius: variables.$border-radius;
+    @include mixins.skeleton;
+}

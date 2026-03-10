@@ -1,0 +1,24 @@
+@use "@styles/variables";
+@use "@styles/mixins";
+
+.title {
+    margin-top: variables.$xl-spacing;
+    margin-bottom: variables.$s-spacing;
+}
+
+.subtitle {
+    margin-bottom: variables.$xl-spacing;
+}
+
+.films_title {
+    display: flex;
+    align-items: center;
+    gap: variables.$s-spacing;
+    margin-bottom: variables.$m-spacing;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    margin-top: variables.$xl-spacing;
+}

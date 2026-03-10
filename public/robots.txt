@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /account
+Disallow: /favorites
+
+Sitemap: https://hw-5-dayz221.vercel.app/sitemap.xml

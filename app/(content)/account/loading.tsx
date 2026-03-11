@@ -1,4 +1,4 @@
-import { Text } from "@/components/Text";
+import { Text } from "@/shared/components/Text";
 import { AccountSkeleton } from "./_components/AccountSkeleton";
 
 import styles from "./AccountPage.module.scss";

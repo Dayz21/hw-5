@@ -1,4 +1,4 @@
-import { CardSkeleton } from "@/components/Card";
+import { CardSkeleton } from "@/shared/components/Card";
 import styles from "./CollectionsSkeleton.module.scss";
 import pageStyles from "../CollectionsPage.module.scss";
 

@@ -3,15 +3,15 @@
 import { useEffect } from "react";
 import { observer } from "mobx-react-lite";
 import { useRouter } from "next/navigation";
-import { StarIcon } from "@/components/Icons/StarIcon/StarIcon";
-import { Text } from "@/components/Text";
-import { getFormattedTime } from "@/utils/getFormattedTime";
-import { VideoFrame } from "@/components/VideoFrame";
-import { FilmsCarousel } from "@/components/FilmsCarousel";
-import { Button } from "@/components/Button";
-import { rootStore } from "@/store/rootStore";
-import { ROUTES } from "@/config/routes";
-import type { FilmType } from "@/store/models/Film";
+import { StarIcon } from "@/shared/components/Icons/StarIcon/StarIcon";
+import { Text } from "@/shared/components/Text";
+import { getFormattedTime } from "@/shared/utils/getFormattedTime";
+import { VideoFrame } from "@/shared/components/VideoFrame";
+import { FilmsCarousel } from "@/shared/components/FilmsCarousel";
+import { Button } from "@/shared/components/Button";
+import { rootStore } from "@/shared/store/rootStore";
+import { ROUTES } from "@/shared/config/routes";
+import type { FilmType } from "@/shared/store/models/Film";
 import { BackButton } from "../BackButton/BackButton";
 import { ImagesSlider } from "../ImagesSlider/ImagesSlider";
 

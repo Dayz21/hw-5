@@ -1,5 +1,5 @@
-import { Limiter } from "@/components/Limiter";
-import { Menu } from "@/components/Menu";
+import { Limiter } from "@/shared/components/Limiter";
+import { Menu } from "@/shared/components/Menu";
 
 export default function ContentLayout({ children }: { children: React.ReactNode }) {
     return (

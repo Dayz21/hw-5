@@ -1,14 +1,14 @@
-import { Text } from "@/components/Text";
-import { serverFetchFilms } from "@/api/server/ServerFilmsAPI";
-import { serverFetchCategories } from "@/api/server/ServerCategoriesAPI";
-import { toOptionType } from "@/store/models/Category";
-import { parseNumberParam } from "@/utils/numberInput";
-import { COUNT_OF_FILMS_ON_PAGE, AGE_LIMIT_OPTIONS } from "@/config/config";
-import type { FilmFiltersType } from "@/api/types/Film";
-import type { Option } from "@/components/MultiDropdown/MultiDropdown";
-import type { FilmsSortField, FilmsSortOrder } from "@/store/FilmsStore";
+import { Text } from "@/shared/components/Text";
+import { serverFetchFilms } from "@/shared/api/server/ServerFilmsAPI";
+import { serverFetchCategories } from "@/shared/api/server/ServerCategoriesAPI";
+import { toOptionType } from "@/shared/store/models/Category";
+import { parseNumberParam } from "@/shared/utils/numberInput";
+import { COUNT_OF_FILMS_ON_PAGE, AGE_LIMIT_OPTIONS } from "@/shared/config/config";
+import type { FilmFiltersType } from "@/shared/api/types/Film";
+import type { Option } from "@/shared/components/MultiDropdown/MultiDropdown";
+import type { FilmsSortField, FilmsSortOrder } from "@/shared/store/FilmsStore";
 import { FiltersBar } from "./_components/FiltersBar";
-import { FilmsInfiniteList } from "@/components/FilmsInfiniteList";
+import { FilmsInfiniteList } from "@/shared/components/FilmsInfiniteList";
 
 import type { Metadata } from "next";
 import styles from "./FilmsPage.module.scss";

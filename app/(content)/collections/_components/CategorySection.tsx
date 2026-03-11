@@ -1,13 +1,13 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { Text } from "@/components/Text";
-import { Button } from "@/components/Button";
-import { FilmsCarousel } from "@/components/FilmsCarousel";
-import { CardSkeleton } from "@/components/Card";
-import { ROUTES } from "@/config/routes";
-import type { CategoryType } from "@/store/models/Category";
-import type { FilmType } from "@/store/models/Film";
+import { Text } from "@/shared/components/Text";
+import { Button } from "@/shared/components/Button";
+import { FilmsCarousel } from "@/shared/components/FilmsCarousel";
+import { CardSkeleton } from "@/shared/components/Card";
+import { ROUTES } from "@/shared/config/routes";
+import type { CategoryType } from "@/shared/store/models/Category";
+import type { FilmType } from "@/shared/store/models/Film";
 
 import styles from "../CollectionsPage.module.scss";
 import skeletonStyles from "./CollectionsSkeleton.module.scss";

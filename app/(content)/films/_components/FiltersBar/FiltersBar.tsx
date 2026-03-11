@@ -2,13 +2,13 @@
 
 import { useState, useEffect, useCallback, useRef, useTransition } from "react";
 import { useRouter, usePathname } from "next/navigation";
-import { Input } from "@/components/Input";
-import { Button } from "@/components/Button";
-import { MultiDropdown } from "@/components/MultiDropdown";
-import { NumberInput } from "@/components/NumberInput";
-import { Text } from "@/components/Text";
-import type { Option } from "@/components/MultiDropdown/MultiDropdown";
-import type { FilmsSortField, FilmsSortOrder } from "@/store/FilmsStore";
+import { Input } from "@/shared/components/Input";
+import { Button } from "@/shared/components/Button";
+import { MultiDropdown } from "@/shared/components/MultiDropdown";
+import { NumberInput } from "@/shared/components/NumberInput";
+import { Text } from "@/shared/components/Text";
+import type { Option } from "@/shared/components/MultiDropdown/MultiDropdown";
+import type { FilmsSortField, FilmsSortOrder } from "@/shared/store/FilmsStore";
 import {
     AGE_LIMIT_OPTIONS,
     YEAR_MIN,
@@ -17,7 +17,7 @@ import {
     RATING_MAX,
     DURATION_MIN,
     DURATION_MAX,
-} from "@/config/config";
+} from "@/shared/config/config";
 
 import styles from "./FiltersBar.module.scss";
 

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { serverFetchFilms } from "@/api/server/ServerFilmsAPI";
-import { COUNT_OF_FILMS_ON_PAGE } from "@/config/config";
+import { serverFetchFilms } from "@/shared/api/server/ServerFilmsAPI";
+import { COUNT_OF_FILMS_ON_PAGE } from "@/shared/config/config";
 import { RecommendationsClient } from "./_components/RecommendationsClient";
 
 export const metadata: Metadata = {

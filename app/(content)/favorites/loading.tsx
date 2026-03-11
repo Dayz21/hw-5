@@ -1,4 +1,4 @@
-import { Text } from "@/components/Text";
+import { Text } from "@/shared/components/Text";
 import { FavoritesSkeleton } from "./_components/FavoritesSkeleton";
 
 import styles from "./FavoritesPage.module.scss";

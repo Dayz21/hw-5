@@ -1,9 +1,9 @@
 "use client";
 
-import { Text } from "@/components/Text";
-import { FilmsInfiniteList } from "@/components/FilmsInfiniteList";
-import type { FilmType } from "@/store/models/Film";
-import type { PaginationType } from "@/store/models/Pagination";
+import { Text } from "@/shared/components/Text";
+import { FilmsInfiniteList } from "@/shared/components/FilmsInfiniteList";
+import type { FilmType } from "@/shared/store/models/Film";
+import type { PaginationType } from "@/shared/store/models/Pagination";
 
 import styles from "../RecommendationsPage.module.scss";
 

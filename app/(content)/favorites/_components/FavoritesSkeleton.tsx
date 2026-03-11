@@ -1,7 +1,7 @@
-import { CardSkeleton } from "@/components/Card";
-import { COUNT_OF_FILMS_ON_PAGE } from "@/config/config";
+import { CardSkeleton } from "@/shared/components/Card";
+import { COUNT_OF_FILMS_ON_PAGE } from "@/shared/config/config";
 
-import listStyles from "@/components/FilmsInfiniteList/FilmsInfiniteList.module.scss";
+import listStyles from "@components/FilmsInfiniteList/FilmsInfiniteList.module.scss";
 
 export const FavoritesSkeleton = () => (
     <div className={listStyles.films_skeleton}>

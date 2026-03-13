@@ -19,8 +19,8 @@ export const useInfinityScroll = ({ callback }: { callback: () => void }) => {
             },
             {
                 root: null,
-                rootMargin: "0px",
-                threshold: 0.1,
+                rootMargin: "0px 0px 800px 0px",
+                threshold: 0,
             },
         );
 
@@ -39,7 +39,7 @@ export const useInfinityScroll = ({ callback }: { callback: () => void }) => {
                 ref={triggerRef}
                 style={{
                     width: "100%",
-                    height: "800px",
+                    height: "1px",
                     position: "absolute",
                     pointerEvents: "none",
                     bottom: 0,

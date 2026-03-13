@@ -21,9 +21,12 @@ export function LoginForm() {
         try {
             await AuthAPI.login(identifier, password);
             await rootStore.userStore.fetchMe();
+            await rootStore.favoritesStore.fetchFavorites();
             router.push(ROUTES.films.get());
-        } catch (error) {
-            console.error("Login error:", error);
+        } catch (error: any) {
+            const message =
+                error?.response?.data?.error?.message ?? "Неверный логин или пароль";
+            rootStore.toastStore.show(message, "error");
         }
     };
 

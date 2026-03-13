@@ -75,7 +75,6 @@ export const FavoritesClient = observer(() => {
                         <Card key={film.documentId} film={film}>
                             <Button
                                 onClick={() => rootStore.favoritesStore.toggleFavorite(film.id)}
-                                outlined
                             >
                                 В избранном
                             </Button>

@@ -30,11 +30,17 @@ export const RecommendationsClient = ({ initialFilms, initialPagination }: Props
                 </Text>
             </div>
 
-            <FilmsInfiniteList
-                initialFilms={initialFilms}
-                initialPagination={initialPagination}
-                filters={{ isFeatured: true }}
-            />
+            {initialPagination.total === 0 ? (
+                <Text view="p-20" color="secondary">
+                    Пока нет рекомендованных фильмов.
+                </Text>
+            ) : (
+                <FilmsInfiniteList
+                    initialFilms={initialFilms}
+                    initialPagination={initialPagination}
+                    filters={{ isFeatured: true }}
+                />
+            )}
         </>
     );
 };

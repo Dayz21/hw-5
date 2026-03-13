@@ -1,17 +1,21 @@
 import { action, computed, makeObservable, observable, runInAction } from "mobx";
 import type { FavoriteType } from "../models/Favorite";
 import { FavoritesAPI } from "@/shared/api/FavoritesAPI";
+import type { ToastStore } from "./toastStore";
 
-type PrivateFields = "_ids" | "_isLoading";
+type PrivateFields = "_ids" | "_favorites" | "_isLoading";
 
 export class FavoritesStore {
     private _ids: number[] = [];
     private _favorites: Record<number, FavoriteType> = {};
     private _isLoading = false;
+    private _toast: ToastStore;
 
-    constructor() {
+    constructor(toastStore: ToastStore) {
+        this._toast = toastStore;
         makeObservable<this, PrivateFields>(this, {
             _ids: observable.ref,
+            _favorites: observable,
             _isLoading: observable,
             favorites: computed,
             isLoading: computed,
@@ -57,7 +61,7 @@ export class FavoritesStore {
                 );
             });
         } catch (error) {
-            console.error("Failed to fetch favorites", error);
+            this._toast.show("Не удалось загрузить избранное", "error");
         } finally {
             runInAction(() => {
                 this._isLoading = false;
@@ -66,28 +70,37 @@ export class FavoritesStore {
     }
 
     async addFavorite(filmId: number) {
+        this._ids = [...this._ids, filmId];
         try {
             const favorite = await FavoritesAPI.addFavorite(filmId);
-
             runInAction(() => {
-                this._ids = [...this._ids, favorite.originalFilmId];
                 this._favorites[favorite.originalFilmId] = favorite;
+                this._toast.show("Добавлено в избранное");
             });
         } catch (error) {
-            console.error("Failed to add favorite", error);
+            runInAction(() => {
+                this._ids = this._ids.filter((id) => id !== filmId);
+                this._toast.show("Не удалось добавить в избранное", "error");
+            });
         }
     }
 
     async removeFavorite(filmId: number) {
+        const prevIds = this._ids;
+        const prevFavorite = this._favorites[filmId];
+        this._ids = this._ids.filter((id) => id !== filmId);
+        delete this._favorites[filmId];
         try {
             await FavoritesAPI.removeFavorite(filmId);
-
             runInAction(() => {
-                delete this._favorites[filmId];
-                this._ids = this._ids.filter((id) => id !== filmId);
+                this._toast.show("Удалено из избранного");
             });
         } catch (error) {
-            console.error("Failed to remove favorite", error);
+            runInAction(() => {
+                this._ids = prevIds;
+                if (prevFavorite) this._favorites[filmId] = prevFavorite;
+                this._toast.show("Не удалось удалить из избранного", "error");
+            });
         }
     }
 

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useMemo } from "react";
 import { observer } from "mobx-react-lite";
 import { useRouter } from "next/navigation";
 import { Button } from "@/shared/components/Button";
@@ -21,14 +21,26 @@ type Props = {
     filters: FilmFiltersType;
 };
 
+const FavoriteButton = observer(({ filmId }: { filmId: number }) => {
+    const isFav = rootStore.favoritesStore.contains(filmId);
+    return (
+        <Button onClick={() => rootStore.favoritesStore.toggleFavorite(filmId)} outlined={!isFav}>
+            {isFav ? "В избранном" : "В избранное"}
+        </Button>
+    );
+});
+
 export const FilmsInfiniteList = observer(({ initialFilms, initialPagination, filters }: Props) => {
     const router = useRouter();
     const [extraFilms, setExtraFilms] = useState<FilmType[]>([]);
     const [pagination, setPagination] = useState(initialPagination);
+    const isLoadingRef = useRef(false);
     const isAuthorized = rootStore.userStore.isAuthorized;
 
     const loadMore = async () => {
         if (pagination.page >= pagination.pageCount) return;
+        if (isLoadingRef.current) return;
+        isLoadingRef.current = true;
         try {
             const { films, pagination: next } = await FilmsAPI.fetchFilms({
                 page: pagination.page + 1,
@@ -38,28 +50,21 @@ export const FilmsInfiniteList = observer(({ initialFilms, initialPagination, fi
             setExtraFilms((prev) => [...prev, ...films]);
             setPagination(next);
         } catch (e) {
-            console.error("Failed to load more films:", e);
+            rootStore.toastStore.show("Не удалось загрузить фильмы", "error");
+        } finally {
+            isLoadingRef.current = false;
         }
     };
 
     const trigger = useInfinityScroll({ callback: loadMore });
-    const allFilms = [...initialFilms, ...extraFilms];
+    const allFilms = useMemo(() => [...initialFilms, ...extraFilms], [initialFilms, extraFilms]);
 
     return (
         <>
             <div className={styles.films}>
                 {allFilms.map((film) => (
                     <Card key={film.documentId} film={film}>
-                        {isAuthorized && (
-                            <Button
-                                onClick={() => rootStore.favoritesStore.toggleFavorite(film.id)}
-                                outlined
-                            >
-                                {rootStore.favoritesStore.contains(film.id)
-                                    ? "В избранном"
-                                    : "В избранное"}
-                            </Button>
-                        )}
+                        {isAuthorized && <FavoriteButton filmId={film.id} />}
                         <Button onClick={() => router.push(ROUTES.film.get(film.documentId))}>
                             Смотреть
                         </Button>

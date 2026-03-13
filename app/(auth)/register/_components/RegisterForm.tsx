@@ -22,9 +22,12 @@ export function RegisterForm() {
         try {
             await AuthAPI.register({ username, email, password });
             await rootStore.userStore.fetchMe();
+            await rootStore.favoritesStore.fetchFavorites();
             router.push(ROUTES.films.get());
-        } catch (error) {
-            console.error("Registration error:", error);
+        } catch (error: any) {
+            const message =
+                error?.response?.data?.error?.message ?? "Ошибка регистрации. Проверьте данные.";
+            rootStore.toastStore.show(message, "error");
         }
     };
 

@@ -8,7 +8,7 @@ import { MultiDropdown } from "@/shared/components/MultiDropdown";
 import { NumberInput } from "@/shared/components/NumberInput";
 import { Text } from "@/shared/components/Text";
 import type { Option } from "@/shared/components/MultiDropdown/MultiDropdown";
-import type { FilmsSortField, FilmsSortOrder } from "@/shared/store/FilmsStore";
+import type { FilmsSortField, FilmsSortOrder } from "@/shared/api/types/Film";
 import {
     AGE_LIMIT_OPTIONS,
     YEAR_MIN,
@@ -67,6 +67,13 @@ export const FiltersBar = ({ categoryOptions, initialFilters }: Props) => {
     const [ratingTo, setRatingTo] = useState(initialRatingTo);
     const [durationFrom, setDurationFrom] = useState(initialDurationFrom);
     const [durationTo, setDurationTo] = useState(initialDurationTo);
+    const [optimisticSortField, setOptimisticSortField] = useState(sortField);
+    const [optimisticSortOrder, setOptimisticSortOrder] = useState(sortOrder);
+
+    useEffect(() => {
+        setOptimisticSortField(sortField);
+        setOptimisticSortOrder(sortOrder);
+    }, [sortField, sortOrder]);
 
     const isFirstRender = useRef(true);
 
@@ -86,6 +93,7 @@ export const FiltersBar = ({ categoryOptions, initialFilters }: Props) => {
             isFirstRender.current = false;
             return;
         }
+        
         const timeout = setTimeout(() => {
             updateURL((params) => {
                 const setOrDelete = (key: string, val: number | null) => {
@@ -164,36 +172,39 @@ export const FiltersBar = ({ categoryOptions, initialFilters }: Props) => {
     };
 
     const toggleSort = (field: FilmsSortField) => {
+        const isSameField = optimisticSortField === field;
+        const currentOrder = isSameField ? optimisticSortOrder : null;
+
+        let nextField: FilmsSortField | null = field;
+        let nextOrder: FilmsSortOrder | null = "desc";
+
+        if (!isSameField) {
+            nextOrder = "desc";
+        } else if (currentOrder === "desc") {
+            nextOrder = "asc";
+        } else if (currentOrder === "asc") {
+            nextField = null;
+            nextOrder = null;
+        }
+
+        setOptimisticSortField(nextField);
+        setOptimisticSortOrder(nextOrder);
+
         updateURL((params) => {
-            const isSameField = sortField === field;
-            const currentOrder = isSameField ? sortOrder : null;
-
-            let nextField: FilmsSortField | null = field;
-            let nextOrder: FilmsSortOrder | null = "desc";
-
-            if (!isSameField) {
-                nextOrder = "desc";
-            } else if (currentOrder === "desc") {
-                nextOrder = "asc";
-            } else if (currentOrder === "asc") {
-                nextField = null;
-                nextOrder = null;
-            }
-
             if (!nextField || !nextOrder) params.delete("sort");
             else params.set("sort", `${nextField}:${nextOrder}`);
         });
     };
 
     const getSortLabel = (field: FilmsSortField, title: string) => {
-        if (sortField !== field) return title;
-        if (sortOrder === "asc") return `${title} ↑`;
-        if (sortOrder === "desc") return `${title} ↓`;
+        if (optimisticSortField !== field) return title;
+        if (optimisticSortOrder === "asc") return `${title} ↑`;
+        if (optimisticSortOrder === "desc") return `${title} ↓`;
         return title;
     };
 
     return (
-        <>
+        <div>
             <div className={styles.search}>
                 <Input value={searchText} onChange={setSearchText} placeholder="Искать фильм" />
                 <Button onClick={handleSearch}>Найти</Button>
@@ -218,12 +229,12 @@ export const FiltersBar = ({ categoryOptions, initialFilters }: Props) => {
                     placeholder="Возраст"
                 />
 
-                <Button outlined={sortField !== "rating"} onClick={() => toggleSort("rating")}>
+                <Button outlined={optimisticSortField !== "rating"} onClick={() => toggleSort("rating")}>
                     {getSortLabel("rating", "Рейтинг")}
                 </Button>
 
                 <Button
-                    outlined={sortField !== "releaseYear"}
+                    outlined={optimisticSortField !== "releaseYear"}
                     onClick={() => toggleSort("releaseYear")}
                 >
                     {getSortLabel("releaseYear", "Год")}
@@ -305,6 +316,6 @@ export const FiltersBar = ({ categoryOptions, initialFilters }: Props) => {
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     );
 };

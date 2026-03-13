@@ -6,7 +6,7 @@ import { parseNumberParam } from "@/shared/utils/numberInput";
 import { COUNT_OF_FILMS_ON_PAGE, AGE_LIMIT_OPTIONS } from "@/shared/config/config";
 import type { FilmFiltersType } from "@/shared/api/types/Film";
 import type { Option } from "@/shared/components/MultiDropdown/MultiDropdown";
-import type { FilmsSortField, FilmsSortOrder } from "@/shared/store/FilmsStore";
+import type { FilmsSortField, FilmsSortOrder } from "@/shared/api/types/Film";
 import { FiltersBar } from "./_components/FiltersBar";
 import { FilmsInfiniteList } from "@/shared/components/FilmsInfiniteList";
 

@@ -49,3 +49,6 @@ export type FilmsQueryParams = {
     filters?: FilmFiltersConditions;
     sort?: string[];
 };
+
+export type FilmsSortField = "rating" | "releaseYear";
+export type FilmsSortOrder = "asc" | "desc";

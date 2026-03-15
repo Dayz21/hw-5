@@ -9,6 +9,11 @@ export const ROUTES = {
         get: () => "/films",
     },
 
+    aiSearch: {
+        path: "/ai-search",
+        get: () => "/ai-search",
+    },
+
     film: {
         path: "/films/:filmId",
         get: (id: string) => `/films/${id}`,

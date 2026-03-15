@@ -8,7 +8,7 @@
     align-items: stretch;
     @include mixins.adaptive(align-items, center, stretch, stretch, stretch);
 
-    @media screen and (max-width: 767px) {
+    @media screen and (max-width: 1023px) {
         display: none;
     }
 }
@@ -18,7 +18,7 @@
     justify-content: space-between;
     align-items: center;
 
-    @media screen and (min-width: 768px) {
+    @media screen and (min-width: 1024px) {
         display: none;
     }
 }

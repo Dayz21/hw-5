@@ -1,8 +1,8 @@
-import { action, makeObservable, observable } from "mobx";
+import { action, computed, makeObservable, observable } from "mobx";
 import { STORAGE_KEYS } from "@/shared/config/config";
 
 export type ToastType = "success" | "error";
-type NotificationPreference = "all" | "errors" | "disabled";
+export type NotificationPreference = "all" | "errors" | "disabled";
 
 export type Toast = {
     id: number;
@@ -12,23 +12,47 @@ export type Toast = {
 
 export class ToastStore {
     toasts: Toast[] = [];
+    private _notificationPreference: NotificationPreference = "all";
     private _nextId = 0;
 
     constructor() {
         makeObservable(this, {
             toasts: observable,
+            _notificationPreference: observable,
+            notificationPreference: computed,
             show: action.bound,
             remove: action.bound,
+            setNotificationPreference: action.bound,
         });
+        this.hydrateNotificationPreference();
     }
 
-    private getNotificationPreference(): NotificationPreference {
+    get notificationPreference() {
+        return this._notificationPreference;
+    }
+
+    private hydrateNotificationPreference() {
+        if (typeof window === "undefined") {
+            this._notificationPreference = "all";
+            return;
+        }
+
+        const preference = localStorage.getItem(STORAGE_KEYS.notificationPreference);
+
+        if (preference === "all" || preference === "errors" || preference === "disabled") {
+            this._notificationPreference = preference;
+            return;
+        }
+
+        this._notificationPreference = "all";
+    }
+
+    private getNotificationPreferenceFromStorage(): NotificationPreference {
         if (typeof window === "undefined") {
             return "all";
         }
 
         const preference = localStorage.getItem(STORAGE_KEYS.notificationPreference);
-
         if (preference === "all" || preference === "errors" || preference === "disabled") {
             return preference;
         }
@@ -36,8 +60,15 @@ export class ToastStore {
         return "all";
     }
 
+    setNotificationPreference(preference: NotificationPreference) {
+        this._notificationPreference = preference;
+        if (typeof window !== "undefined") {
+            localStorage.setItem(STORAGE_KEYS.notificationPreference, preference);
+        }
+    }
+
     show(message: string, type: ToastType = "success") {
-        const preference = this.getNotificationPreference();
+        const preference = this.getNotificationPreferenceFromStorage();
 
         if (preference === "disabled") {
             return;

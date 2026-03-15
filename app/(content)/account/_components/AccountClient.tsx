@@ -9,7 +9,8 @@ import { AccountSkeleton } from "./AccountSkeleton";
 import { AccountOptionSelector } from "./AccountOptionSelector";
 import { ROUTES } from "@/shared/config/routes";
 import { rootStore } from "@/shared/store/rootStore";
-import type { NotificationPreference, ThemePreference } from "@/shared/store/rootStore/userStore";
+import type { ThemePreference } from "@/shared/store/rootStore/userStore";
+import type { NotificationPreference } from "@/shared/store/rootStore/toastStore";
 import type { AccountOption } from "./AccountOptionSelector";
 
 import styles from "../AccountPage.module.scss";
@@ -28,8 +29,8 @@ const themeOptions: AccountOption<ThemePreference>[] = [
 export const AccountClient = observer(() => {
     const router = useRouter();
     const [isHydrated, setIsHydrated] = useState(false);
-    const { user, isLoading, isAuthorized, notificationPreference, themePreference } =
-        rootStore.userStore;
+    const { user, isLoading, isAuthorized, themePreference } = rootStore.userStore;
+    const { notificationPreference } = rootStore.toastStore;
 
     useEffect(() => {
         setIsHydrated(true);
@@ -132,7 +133,7 @@ export const AccountClient = observer(() => {
                     <AccountOptionSelector
                         options={notificationOptions}
                         value={notificationPreference}
-                        onChange={(value) => rootStore.userStore.setNotificationPreference(value)}
+                        onChange={(value) => rootStore.toastStore.setNotificationPreference(value)}
                         className={styles.item_value}
                     />
                 </div>

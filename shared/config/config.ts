@@ -4,6 +4,8 @@ export const COUNT_OF_FILMS_ON_CATEGORIES_PAGE = 4;
 
 export const STORAGE_KEYS = {
     token: "token",
+    notificationPreference: "notificationPreference",
+    themePreference: "themePreference",
 } as const;
 
 export const DESKTOP_WIDTH = 1440;

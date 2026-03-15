@@ -12,6 +12,7 @@ export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
     children: React.ReactNode;
     outlined?: boolean;
     className?: string;
+    view?: "thin" | "default";
     onClick?: () => void;
 };
 
@@ -20,6 +21,7 @@ export const Button: React.FC<ButtonProps> = ({
     children,
     onClick,
     outlined,
+    view = "default",
     className,
     ...props
 }) => {
@@ -28,14 +30,22 @@ export const Button: React.FC<ButtonProps> = ({
             {...props}
             className={classNames(
                 styles.button,
-                { [styles.outlined]: outlined, [styles.loading]: loading },
+                {
+                    [styles.outlined]: outlined,
+                    [styles.loading]: loading,
+                    [styles.thin]: view === "thin",
+                },
                 className,
             )}
             disabled={props.disabled}
             onClick={onClick}
         >
             {loading && <Loader size="s" color={outlined ? "accent" : "primary"} />}
-            <Text view="button" tag="span" color={outlined ? "accent" : undefined}>
+            <Text
+                view={view === "thin" ? "button-thin" : "button"}
+                tag="span"
+                color={outlined ? "accent" : undefined}
+            >
                 {children}
             </Text>
         </button>

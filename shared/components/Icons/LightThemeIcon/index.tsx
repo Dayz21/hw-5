@@ -1,0 +1,1 @@
+export { LightThemeIcon } from "./LightThemeIcon";

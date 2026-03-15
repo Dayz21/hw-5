@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useMemo } from "react";
+import { useState, useRef, useMemo, useCallback } from "react";
 import { observer } from "mobx-react-lite";
 import { useRouter } from "next/navigation";
 import { Button } from "@/shared/components/Button";
@@ -49,7 +49,7 @@ export const FilmsInfiniteList = observer(({ initialFilms, initialPagination, fi
             });
             setExtraFilms((prev) => [...prev, ...films]);
             setPagination(next);
-        } catch (e) {
+        } catch {
             rootStore.toastStore.show("Не удалось загрузить фильмы", "error");
         } finally {
             isLoadingRef.current = false;
@@ -58,16 +58,24 @@ export const FilmsInfiniteList = observer(({ initialFilms, initialPagination, fi
 
     const trigger = useInfinityScroll({ callback: loadMore });
     const allFilms = useMemo(() => [...initialFilms, ...extraFilms], [initialFilms, extraFilms]);
+    const handleFilmClick = useCallback(
+        (filmId: string) => {
+            router.push(ROUTES.film.get(filmId));
+        },
+        [router],
+    );
 
     return (
         <>
             <div className={styles.films}>
                 {allFilms.map((film) => (
-                    <Card key={film.documentId} film={film}>
+                    <Card
+                        key={film.documentId}
+                        film={film}
+                        onClick={() => handleFilmClick(film.documentId)}
+                    >
                         {isAuthorized && <FavoriteButton filmId={film.id} />}
-                        <Button onClick={() => router.push(ROUTES.film.get(film.documentId))}>
-                            Смотреть
-                        </Button>
+                        <Button onClick={() => handleFilmClick(film.documentId)}>Смотреть</Button>
                     </Card>
                 ))}
             </div>

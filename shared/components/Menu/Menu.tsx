@@ -1,6 +1,7 @@
 "use client";
 
 import type React from "react";
+import { observer } from "mobx-react-lite";
 import { Image } from "../Image";
 import { Text } from "../Text";
 import { Limiter } from "../Limiter";
@@ -9,12 +10,21 @@ import { useState } from "react";
 import { CloseIcon } from "../Icons/CloseIcon";
 import { MenuItem } from "./MenuItem";
 import classNames from "classnames";
+import { DarkThemeIcon } from "../Icons/DarkThemeIcon";
+import { LightThemeIcon } from "../Icons/LightThemeIcon";
+import { rootStore } from "@/shared/store/rootStore";
 
 import styles from "./Menu.module.scss";
 import { desktopMenuItems, mobileMenuItems } from "./items";
 
-export const Menu: React.FC = () => {
+export const Menu: React.FC = observer(() => {
     const [visibleMobileMenu, setVisibleMobileMenu] = useState(false);
+    const { themePreference } = rootStore.userStore;
+    const isDarkTheme = themePreference === "dark";
+
+    const toggleTheme = () => {
+        rootStore.userStore.setThemePreference(isDarkTheme ? "light" : "dark");
+    };
 
     return (
         <menu className={styles.menu_container}>
@@ -37,6 +47,15 @@ export const Menu: React.FC = () => {
                 </nav>
 
                 <div className={styles.controls}>
+                    <button
+                        type="button"
+                        className={styles.theme_button}
+                        onClick={toggleTheme}
+                        aria-label={isDarkTheme ? "Включить светлую тему" : "Включить темную тему"}
+                        title={isDarkTheme ? "Светлая тема" : "Темная тема"}
+                    >
+                        {isDarkTheme ? <DarkThemeIcon size={24} /> : <LightThemeIcon size={24} />}
+                    </button>
                     {desktopMenuItems
                         .filter((el) => el.isIcon)
                         .map((data) => (
@@ -54,8 +73,18 @@ export const Menu: React.FC = () => {
                     className={styles.image}
                     noAnimation
                 />
-
-                <MenuIcon size={48} onClick={() => setVisibleMobileMenu((prev) => !prev)} />
+                <div className={styles.mobile_controls}>
+                    <button
+                        type="button"
+                        className={styles.theme_button}
+                        onClick={toggleTheme}
+                        aria-label={isDarkTheme ? "Включить светлую тему" : "Включить темную тему"}
+                        title={isDarkTheme ? "Светлая тема" : "Темная тема"}
+                    >
+                        {isDarkTheme ? <DarkThemeIcon size={24} /> : <LightThemeIcon size={24} />}
+                    </button>
+                    <MenuIcon size={48} onClick={() => setVisibleMobileMenu((prev) => !prev)} />
+                </div>
 
                 <div
                     className={classNames(styles.mobile_menu, {
@@ -84,4 +113,4 @@ export const Menu: React.FC = () => {
             </Limiter>
         </menu>
     );
-};
+});

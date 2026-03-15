@@ -25,7 +25,7 @@ export const ImagesSlider: React.FC<Props> = ({ images, className }) => {
                 slidesPerView={3}
                 onSwiper={(swiper) => (swiperRef.current = swiper)}
                 breakpoints={{
-                    375: { slidesPerView: 1, spaceBetween: 10 },
+                    320: { slidesPerView: 1, spaceBetween: 10 },
                     768: { slidesPerView: 2, spaceBetween: 10 },
                     1400: { slidesPerView: 3, spaceBetween: 20 },
                 }}

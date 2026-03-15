@@ -18,6 +18,10 @@
     user-select: none;
     cursor: pointer;
 
+    &.thin {
+        padding: 10px 15px;
+    }
+
     &:disabled {
         // background-color: colors.$button-disabled-bg-color;
         // border-color: colors.$button-disabled-bg-color;

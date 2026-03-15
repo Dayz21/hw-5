@@ -72,6 +72,32 @@
     align-items: center;
 }
 
+.mobile_controls {
+    display: flex;
+    align-items: center;
+    gap: variables.$xs-spacing;
+}
+
+.theme_button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border: 1px solid colors.$input-border-color;
+    border-radius: variables.$border-radius;
+    background: transparent;
+    cursor: pointer;
+    transition:
+        border-color 0.2s,
+        background-color 0.2s,
+        color 0.2s;
+
+    &:hover {
+        border-color: colors.$accent-color;
+    }
+}
+
 .mobile_menu {
     position: fixed;
     top: 0;

@@ -1,68 +1,63 @@
-$bg-color: #141414;
+$bg-color: var(--bg-color);
 
-$accent-color: #e50914;
-$active-accent-color: #b20710;
+$accent-color: var(--accent-color);
+$active-accent-color: var(--active-accent-color);
+$accent-color-soft: var(--accent-color-soft);
 
-$primary-text-color: #ffffff;
-$secondary-text-color: #b3b3b3;
-$accent-text-color: $accent-color;
+$primary-text-color: var(--primary-text-color);
+$secondary-text-color: var(--secondary-text-color);
+$accent-text-color: var(--accent-text-color);
 
 // Button
-$button-bg-color: $accent-color;
-$button-text-color: #ffffff;
-$button-active-bg-color: $active-accent-color;
-$button-active-text-color: #ffffff;
+$button-bg-color: var(--button-bg-color);
+$button-text-color: var(--button-text-color);
+$button-active-bg-color: var(--button-active-bg-color);
+$button-active-text-color: var(--button-active-text-color);
 
-$button-outline-bg-color: $bg-color;
+$button-outline-bg-color: var(--button-outline-bg-color);
 
-$button-disabled-bg-color: #d9d9d9;
+$button-disabled-bg-color: var(--button-disabled-bg-color);
 
 // Input
-$input-bg-color: #181818;
-$input-placeholder-color: #8c8c8c;
-$input-border-color: #333333;
+$input-bg-color: var(--input-bg-color);
+$input-placeholder-color: var(--input-placeholder-color);
+$input-border-color: var(--input-border-color);
 
-$input-disabled-bg-color: #111111;
-$input-disabled-text-color: #666666;
-$input-disabled-border-color: #222222;
+$input-disabled-bg-color: var(--input-disabled-bg-color);
+$input-disabled-text-color: var(--input-disabled-text-color);
+$input-disabled-border-color: var(--input-disabled-border-color);
 
 // Chechbox
-$checkbox-bg-color: #141414;
-$checkbox-hover-bg-color: #1f1f1f;
-$checkbox-disabled-bg-color: #14141480;
+$checkbox-bg-color: var(--checkbox-bg-color);
+$checkbox-hover-bg-color: var(--checkbox-hover-bg-color);
+$checkbox-disabled-bg-color: var(--checkbox-disabled-bg-color);
 
-$checkbox-border-color: #b3b3b3;
-$checkbox-disabled-border-color: #444444;
+$checkbox-border-color: var(--checkbox-border-color);
+$checkbox-disabled-border-color: var(--checkbox-disabled-border-color);
 
-$disabled-color: #444444;
+$disabled-color: var(--disabled-color);
 
 // Card
-$card-bg-color: #1e1e1e;
-$card-border-color: #ffffff0f;
+$card-bg-color: var(--card-bg-color);
+$card-border-color: var(--card-border-color);
 
-$card-hover-bg-color: #232323;
-$card-hint-color: rgba(0, 0, 0, 0.8);
+$card-hover-bg-color: var(--card-hover-bg-color);
+$card-hint-color: var(--card-hint-color);
 
 // Image
-$image-bg-color: #2a2a2a;
+$image-bg-color: var(--image-bg-color);
 
 // Menu
-$menu-border-color: #222222;
+$menu-border-color: var(--menu-border-color);
 
 // skeleton-bg-color
-$skeleton-bg-color: #2a2a2a;
-$skeleton-gradient: linear-gradient(
-    90deg,
-    #ffffff00 0%,
-    #ffffff1f 45%,
-    #ffffff1f 55%,
-    #ffffff00 100%
-);
+$skeleton-bg-color: var(--skeleton-bg-color);
+$skeleton-gradient: var(--skeleton-gradient);
 
 // Slider
-$nav-button-bg-color: black;
-$nav-button-shadow: 0px 4px 20px #afadb533;
+$nav-button-bg-color: var(--nav-button-bg-color);
+$nav-button-shadow: var(--nav-button-shadow);
 
 // Toast
-$success: #22c55e;
-$error: #ef4444;
+$success: var(--success-color);
+$error: var(--error-color);

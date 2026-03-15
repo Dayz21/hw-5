@@ -25,6 +25,13 @@
 .button {
     font-size: 18px;
     line-height: 18px;
+    color: colors.$button-text-color;
+}
+
+.button-thin {
+    font-size: 16px;
+    line-height: 16px;
+    color: colors.$button-text-color;
 }
 
 .p-24 {

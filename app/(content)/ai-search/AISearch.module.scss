@@ -14,7 +14,7 @@
     padding: 10px;
     border-radius: 15px;
     border: 1px solid colors.$accent-color;
-    background-color: transparentize(colors.$accent-color, 0.95);
+    background-color: colors.$accent-color-soft;
     display: inline-block;
 
     @media screen and (max-width: 375px) {

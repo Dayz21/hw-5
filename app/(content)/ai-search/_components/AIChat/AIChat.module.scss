@@ -1,0 +1,48 @@
+@use "@styles/variables";
+
+.chat {
+    margin-top: variables.$xl-spacing;
+    display: flex;
+    flex-direction: column;
+    gap: variables.$xs-spacing;
+}
+
+.form {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    gap: variables.$m-spacing;
+}
+
+.results {
+    display: flex;
+    flex-direction: column;
+    gap: variables.$m-spacing;
+}
+
+.examples_list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: variables.$xxs-spacing;
+    margin-bottom: variables.$l-spacing;
+}
+
+.example_button {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 999px;
+    background: transparent;
+    padding: variables.$xxs-spacing variables.$xs-spacing;
+    cursor: pointer;
+}
+
+.results_header {
+    display: flex;
+    align-items: center;
+    gap: variables.$s-spacing;
+}
+
+@media screen and (max-width: 768px) {
+    .form {
+        grid-template-columns: 1fr;
+    }
+}

@@ -51,7 +51,9 @@ export function FilmDetail({ film, recommendations }: Props) {
         <>
             <BackButton
                 className={styles.back_button}
-                onClick={() => (window.history.length > 1 ? router.back() : router.push(ROUTES.films.get()))}
+                onClick={() =>
+                    window.history.length > 1 ? router.back() : router.push(ROUTES.films.get())
+                }
             />
 
             <div className={styles.film}>

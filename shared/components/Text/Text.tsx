@@ -22,6 +22,7 @@ export const Text: React.FC<TextProps> = ({
     view = "p-16",
     tag: Tag = "div",
     maxLines = 0,
+    onClick,
     align,
 }) => {
     return (
@@ -40,6 +41,7 @@ export const Text: React.FC<TextProps> = ({
                 WebkitLineClamp: maxLines > 0 ? maxLines : "none",
                 lineClamp: maxLines > 0 ? maxLines : "none",
             }}
+            {...(onClick ? { onClick } : {})}
         >
             {children}
         </Tag>

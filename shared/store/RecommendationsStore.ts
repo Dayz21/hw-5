@@ -1,6 +1,7 @@
 import type { ILocalStore } from "@/shared/hooks/useLocalStore";
 import { FilmsAPI } from "@/shared/api/FilmsAPI";
 import { COUNT_OF_FILMS_ON_PAGE } from "@/shared/config/config";
+import { logger } from "@/shared/utils/logger";
 import type { FilmType } from "@/shared/store/models/Film";
 import type { PaginationType } from "@/shared/store/models/Pagination";
 import { action, computed, makeObservable, observable, runInAction } from "mobx";
@@ -60,7 +61,7 @@ export class RecommendationsStore implements ILocalStore {
                 this._pagination = pagination;
             });
         } catch (error) {
-            console.error("Failed to fetch recommendations:", error);
+            logger.error("Failed to fetch recommendations", error, { page, pageSize });
         } finally {
             runInAction(() => {
                 this._isLoading = false;
@@ -85,7 +86,7 @@ export class RecommendationsStore implements ILocalStore {
                 this._pagination = pagination;
             });
         } catch (error) {
-            console.error("Failed to fetch next recommendations:", error);
+            logger.error("Failed to fetch next recommendations", error, { nextPage });
         }
     }
 

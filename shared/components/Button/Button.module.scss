@@ -19,8 +19,9 @@
     cursor: pointer;
 
     &:disabled {
-        background-color: colors.$button-disabled-bg-color;
-        border-color: colors.$button-disabled-bg-color;
+        // background-color: colors.$button-disabled-bg-color;
+        // border-color: colors.$button-disabled-bg-color;
+        opacity: 0.6;
         cursor: not-allowed;
     }
 

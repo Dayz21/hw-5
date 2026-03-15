@@ -22,7 +22,7 @@ export const MenuItem: React.FC<MenuItemProps> = ({ content, path, isMobile, onC
 
     return (
         <Link
-            prefetch={true}
+            prefetch={false}
             href={path}
             className={classNames(styles.link, { [styles.active]: isActive })}
             onClick={onClick}

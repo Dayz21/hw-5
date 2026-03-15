@@ -1,6 +1,7 @@
 import type { ILocalStore } from "@/shared/hooks/useLocalStore";
 import { FilmsAPI } from "@/shared/api/FilmsAPI";
 import { COUNT_OF_RECOMMENDATIONS } from "@/shared/config/config";
+import { logger } from "@/shared/utils/logger";
 import type { FilmType } from "@/shared/store/models/Film";
 import { action, computed, makeObservable, observable, runInAction } from "mobx";
 
@@ -59,7 +60,7 @@ export class FilmStore implements ILocalStore {
                 this._film = film;
             });
         } catch (error) {
-            console.error("Failed to fetch film:", error);
+            logger.error("Failed to fetch film", error, { filmId });
         } finally {
             runInAction(() => {
                 this._isFilmLoading = false;
@@ -81,7 +82,7 @@ export class FilmStore implements ILocalStore {
                 this._recommendations = films;
             });
         } catch (error) {
-            console.error("Failed to fetch recommendations:", error);
+            logger.error("Failed to fetch recommendations", error);
         } finally {
             runInAction(() => {
                 this._isRecommendationsLoading = false;

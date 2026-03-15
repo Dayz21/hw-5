@@ -1,6 +1,7 @@
 import { action, computed, makeObservable, observable, runInAction } from "mobx";
 import { AuthAPI } from "@/shared/api/AuthAPI";
 import { STORAGE_KEYS } from "@/shared/config/config";
+import { logger } from "@/shared/utils/logger";
 import type { UserType } from "../models/User";
 
 type PrivateFields = "_user" | "_isLoading";
@@ -61,7 +62,7 @@ export class UserStore {
                 this._user = me;
             });
         } catch (error) {
-            console.error("Failed to fetch user", error);
+            logger.error("Failed to fetch user", error);
             try {
                 await AuthAPI.logout();
             } catch {

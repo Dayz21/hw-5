@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Input } from "@/shared/components/Input";
@@ -17,15 +17,18 @@ export function LoginForm() {
     const [password, setPassword] = useState("");
     const router = useRouter();
 
-    const handleLogin = async () => {
+    const handleLogin = async (event: FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+
         try {
             await AuthAPI.login(identifier, password);
             await rootStore.userStore.fetchMe();
             await rootStore.favoritesStore.fetchFavorites();
             router.push(ROUTES.films.get());
-        } catch (error: any) {
+        } catch (error: unknown) {
             const message =
-                error?.response?.data?.error?.message ?? "Неверный логин или пароль";
+                (error as { response?: { data?: { error?: { message?: string } } } })?.response
+                    ?.data?.error?.message ?? "Неверный логин или пароль";
             rootStore.toastStore.show(message, "error");
         }
     };
@@ -35,7 +38,7 @@ export function LoginForm() {
             <Text view="title" tag="h1" weight="bold" align="center">
                 Вход
             </Text>
-            <div className={styles.auth_inputs}>
+            <form className={styles.auth_inputs} onSubmit={handleLogin}>
                 <Input
                     placeholder="Username or Email"
                     label="Имя пользователя или email"
@@ -49,8 +52,8 @@ export function LoginForm() {
                     value={password}
                     onChange={setPassword}
                 />
-            </div>
-            <Button onClick={handleLogin}>Войти</Button>
+                <Button type="submit">Войти</Button>
+            </form>
             <Link href={ROUTES.register.get()}>
                 <Text view="p-14" color="secondary" align="center">
                     Нет аккаунта? Зарегистрируйтесь

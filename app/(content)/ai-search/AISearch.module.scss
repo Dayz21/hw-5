@@ -1,0 +1,23 @@
+@use "@styles/variables";
+@use "@styles/colors";
+
+.header {
+    margin-top: variables.$xl-spacing;
+    margin-bottom: variables.$s-spacing;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: variables.$m-spacing;
+}
+
+.ai {
+    padding: 10px;
+    border-radius: 15px;
+    border: 1px solid colors.$accent-color;
+    background-color: transparentize(colors.$accent-color, 0.95);
+    display: inline-block;
+
+    @media screen and (max-width: 375px) {
+        display: none;
+    }
+}

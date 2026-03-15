@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 
 import { serverFetchFilms } from "@/shared/api/server/ServerFilmsAPI";
 import { serverFetchCategories } from "@/shared/api/server/ServerCategoriesAPI";
+import { logger } from "@/shared/utils/logger";
 import { SYSTEM_PROMPT } from "./system_prompt";
 import type { FilmFiltersType } from "@/shared/api/types/Film";
 
@@ -31,37 +32,77 @@ export async function POST(request: Request) {
 
         const categories = await serverFetchCategories();
         if (!categories || categories.length === 0) {
-            return NextResponse.json({ error: "No categories available for matching" }, { status: 500 });
+            return NextResponse.json(
+                { error: "No categories available for matching" },
+                { status: 500 },
+            );
         }
 
-        const message = await client.messages.create({
-            model: "claude-sonnet-4-6",
-            max_tokens: 512,
-            system: SYSTEM_PROMPT + "\nCategories available: " + categories.map((cat) => cat.title).join(", "),
-            messages: [{ role: "user", content: query }],
+        const model = "claude-sonnet-4-6";
+        const modelRequestStartedAt = Date.now();
+        logger.debug("Calling AI model for search", {
+            model,
+            queryLength: query.length,
+            categoriesCount: categories.length,
         });
 
+        let message: Awaited<ReturnType<typeof client.messages.create>>;
+        try {
+            message = await client.messages.create({
+                model,
+                max_tokens: 512,
+                system:
+                    SYSTEM_PROMPT +
+                    "\nCategories available: " +
+                    categories.map((cat) => cat.title).join(", "),
+                messages: [{ role: "user", content: query }],
+            });
+            logger.info("AI model responded for search", {
+                model,
+                durationMs: Date.now() - modelRequestStartedAt,
+            });
+        } catch (error) {
+            logger.error("AI model request failed", error, {
+                model,
+                queryLength: query.length,
+                categoriesCount: categories.length,
+            });
+            throw error;
+        }
+
+        if (message.content.length === 0) {
+            logger.error("AI model returned empty content", undefined, { model });
+            throw new Error("Empty Claude response content");
+        }
+
         const content = message.content[0];
-        if (content.type !== "text") throw new Error("Unexpected Claude response type");
+        if (content.type !== "text") {
+            logger.error("Unexpected AI response type", undefined, {
+                model,
+                contentType: content.type,
+            });
+            throw new Error("Unexpected Claude response type");
+        }
 
         let aiFilters: AIFilters = {};
         try {
             aiFilters = JSON.parse(content.text);
         } catch {
+            logger.warn("AI returned non-JSON filters, falling back to plain search");
             aiFilters = { search: query };
         }
 
         const matchedCategories =
             aiFilters.categoryNames && aiFilters.categoryNames.length > 0
                 ? categories
-                    .filter((cat) =>
-                        aiFilters.categoryNames!.some(
-                            (name) =>
-                                cat.title.toLowerCase().includes(name.toLowerCase()) ||
-                                name.toLowerCase().includes(cat.title.toLowerCase()),
-                        ),
-                    )
-                    .map((cat) => ({ key: cat.documentId, value: cat.title }))
+                      .filter((cat) =>
+                          aiFilters.categoryNames!.some(
+                              (name) =>
+                                  cat.title.toLowerCase().includes(name.toLowerCase()) ||
+                                  name.toLowerCase().includes(cat.title.toLowerCase()),
+                          ),
+                      )
+                      .map((cat) => ({ key: cat.documentId, value: cat.title }))
                 : undefined;
 
         const filters: FilmFiltersType = {
@@ -81,6 +122,11 @@ export async function POST(request: Request) {
 
         return NextResponse.json({ films, pagination, filters });
     } catch (error) {
-        return NextResponse.json({ error: "AI search failed. Check your ANTHROPIC_API_KEY." }, { status: 500 });
+        logger.error("AI search route failed", error);
+        let errorMessage = "AI search failed.";
+        if (error && typeof error === "object" && "message" in error) {
+            errorMessage += ` Reason: ${(error as { message?: string }).message}`;
+        }
+        return NextResponse.json({ error: errorMessage }, { status: 500 });
     }
 }

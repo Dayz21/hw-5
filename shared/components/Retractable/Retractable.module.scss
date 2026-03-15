@@ -1,6 +1,6 @@
 .retractable {
     grid-template-rows: 0fr;
-    transition: grid-template-rows .3s;
+    transition: grid-template-rows 0.3s;
 
     .container {
         min-width: 0;

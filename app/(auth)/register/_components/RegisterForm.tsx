@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type SubmitEvent } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Input } from "@/shared/components/Input";
@@ -18,15 +18,18 @@ export function RegisterForm() {
     const [password, setPassword] = useState("");
     const router = useRouter();
 
-    const handleRegister = async () => {
+    const handleRegister = async (event: SubmitEvent<HTMLFormElement>) => {
+        event.preventDefault();
+
         try {
             await AuthAPI.register({ username, email, password });
             await rootStore.userStore.fetchMe();
             await rootStore.favoritesStore.fetchFavorites();
             router.push(ROUTES.films.get());
-        } catch (error: any) {
+        } catch (error: unknown) {
             const message =
-                error?.response?.data?.error?.message ?? "Ошибка регистрации. Проверьте данные.";
+                (error as { response?: { data?: { error?: { message?: string } } } })?.response
+                    ?.data?.error?.message ?? "Неверный логин или пароль";
             rootStore.toastStore.show(message, "error");
         }
     };
@@ -36,7 +39,7 @@ export function RegisterForm() {
             <Text view="title" tag="h1" weight="bold" align="center">
                 Регистрация
             </Text>
-            <div className={styles.auth_inputs}>
+            <form className={styles.auth_inputs} onSubmit={handleRegister}>
                 <Input
                     placeholder="Username"
                     label="Имя пользователя"
@@ -51,8 +54,8 @@ export function RegisterForm() {
                     value={password}
                     onChange={setPassword}
                 />
-            </div>
-            <Button onClick={handleRegister}>Зарегистрироваться</Button>
+                <Button type="submit">Зарегистрироваться</Button>
+            </form>
             <Link href={ROUTES.login.get()}>
                 <Text view="p-14" color="secondary" align="center">
                     Уже есть аккаунт? Войдите

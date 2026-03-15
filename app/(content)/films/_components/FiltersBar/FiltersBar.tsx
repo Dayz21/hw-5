@@ -93,7 +93,7 @@ export const FiltersBar = ({ categoryOptions, initialFilters }: Props) => {
             isFirstRender.current = false;
             return;
         }
-        
+
         const timeout = setTimeout(() => {
             updateURL((params) => {
                 const setOrDelete = (key: string, val: number | null) => {
@@ -229,7 +229,10 @@ export const FiltersBar = ({ categoryOptions, initialFilters }: Props) => {
                     placeholder="Возраст"
                 />
 
-                <Button outlined={optimisticSortField !== "rating"} onClick={() => toggleSort("rating")}>
+                <Button
+                    outlined={optimisticSortField !== "rating"}
+                    onClick={() => toggleSort("rating")}
+                >
                     {getSortLabel("rating", "Рейтинг")}
                 </Button>
 

@@ -4,8 +4,8 @@ import { AccountIcon } from "../Icons/AccountIcon";
 import { FavoritesIcon } from "../Icons/FavoritesIcon";
 
 export const mobileMenuItems: MenuItemProps[] = [
-    { content: "Поиск с ИИ", path: ROUTES.aiSearch.get() },
     { content: "Фильмы", path: ROUTES.films.get() },
+    { content: "Поиск с ИИ", path: ROUTES.aiSearch.get() },
     { content: "Рекомендации", path: ROUTES.recommendations.get() },
     { content: "Подборки", path: ROUTES.collections.get() },
     { content: "Избранное", path: ROUTES.favorites.get() },
@@ -13,8 +13,8 @@ export const mobileMenuItems: MenuItemProps[] = [
 ];
 
 export const desktopMenuItems: MenuItemProps[] = [
-    { content: "Поиск с ИИ", path: ROUTES.aiSearch.get() },
     { content: "Фильмы", path: ROUTES.films.get() },
+    { content: "Поиск с ИИ", path: ROUTES.aiSearch.get() },
     { content: "Рекомендации", path: ROUTES.recommendations.get() },
     { content: "Подборки", path: ROUTES.collections.get() },
     { content: <FavoritesIcon size={30} />, isIcon: true, path: ROUTES.favorites.get() },

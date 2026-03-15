@@ -6,6 +6,7 @@ import type { FilmType } from "@/shared/store/models/Film";
 import type { Option } from "@/shared/components/MultiDropdown/MultiDropdown";
 import { action, computed, makeObservable, observable, runInAction } from "mobx";
 import { COUNT_OF_FILMS_ON_CATEGORIES_PAGE } from "@/shared/config/config";
+import { logger } from "@/shared/utils/logger";
 
 type CategoryFilmsState = {
     isLoading: boolean;
@@ -84,7 +85,7 @@ export class CollectionsStore implements ILocalStore {
                 this._categories = categories;
             });
         } catch (error) {
-            console.error("Failed to fetch collections", error);
+            logger.error("Failed to fetch collections", error);
         } finally {
             runInAction(() => {
                 this._isLoading = false;
@@ -132,7 +133,10 @@ export class CollectionsStore implements ILocalStore {
             });
             this._updateCategoryFilms(category.documentId, films);
         } catch (error) {
-            console.error("Failed to fetch films for category", category.title, error);
+            logger.error("Failed to fetch films for category", error, {
+                categoryDocumentId: category.documentId,
+                categoryTitle: category.title,
+            });
             this._updateCategoryFilms(category.documentId, []);
         }
     }

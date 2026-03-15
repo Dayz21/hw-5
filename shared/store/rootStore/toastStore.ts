@@ -16,7 +16,7 @@ export class ToastStore {
     private _nextId = 0;
 
     constructor() {
-        makeObservable(this, {
+        makeObservable<this, "_notificationPreference">(this, {
             toasts: observable,
             _notificationPreference: observable,
             notificationPreference: computed,
@@ -33,7 +33,7 @@ export class ToastStore {
 
     private hydrateNotificationPreference() {
         if (typeof window === "undefined") {
-            this._notificationPreference = "all";
+            this._notificationPreference = "errors";
             return;
         }
 
@@ -44,7 +44,7 @@ export class ToastStore {
             return;
         }
 
-        this._notificationPreference = "all";
+        this._notificationPreference = "errors";
     }
 
     private getNotificationPreferenceFromStorage(): NotificationPreference {
@@ -57,7 +57,7 @@ export class ToastStore {
             return preference;
         }
 
-        return "all";
+        return "errors";
     }
 
     setNotificationPreference(preference: NotificationPreference) {

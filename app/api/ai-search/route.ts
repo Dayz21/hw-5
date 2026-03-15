@@ -6,6 +6,8 @@ import { serverFetchCategories } from "@/shared/api/server/ServerCategoriesAPI";
 import { logger } from "@/shared/utils/logger";
 import { SYSTEM_PROMPT } from "./system_prompt";
 import type { FilmFiltersType } from "@/shared/api/types/Film";
+import type { Option } from "@/shared/components/MultiDropdown/MultiDropdown";
+import { AGE_LIMIT_OPTIONS, COUNT_OF_FILMS_ON_PAGE } from "@config/config";
 
 const client = new Anthropic({
     baseURL: "https://litellm.tokengate.ru",
@@ -19,6 +21,7 @@ type AIFilters = {
     ratingFrom?: number;
     ratingTo?: number;
     categoryNames?: string[];
+    ageLimits?: number[];
 };
 
 export async function POST(request: Request) {
@@ -105,6 +108,16 @@ export async function POST(request: Request) {
                       .map((cat) => ({ key: cat.documentId, value: cat.title }))
                 : undefined;
 
+        let ageLimitOptions: Option[] | undefined;
+        if (aiFilters.ageLimits && aiFilters.ageLimits.length > 0) {
+            ageLimitOptions = aiFilters.ageLimits
+                .map((age) => AGE_LIMIT_OPTIONS.find((opt) => opt.key === age.toString()))
+                .filter((opt): opt is Option => opt !== undefined);
+            if (ageLimitOptions.length === 0) {
+                ageLimitOptions = undefined;
+            }
+        }
+
         const filters: FilmFiltersType = {
             search: aiFilters.search || undefined,
             categories: matchedCategories?.length ? matchedCategories : undefined,
@@ -112,11 +125,12 @@ export async function POST(request: Request) {
             releaseYearTo: aiFilters.yearTo ?? null,
             ratingFrom: aiFilters.ratingFrom ?? null,
             ratingTo: aiFilters.ratingTo ?? null,
+            ageLimits: ageLimitOptions,
         };
 
         const { films, pagination } = await serverFetchFilms({
             page: 1,
-            pageSize: 12,
+            pageSize: COUNT_OF_FILMS_ON_PAGE,
             filters,
         });
 

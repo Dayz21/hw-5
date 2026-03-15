@@ -1,9 +1,9 @@
 "use client";
 
-import { Text } from "@/components/Text";
-import { FilmsInfiniteList } from "@/components/FilmsInfiniteList";
-import type { FilmType } from "@/store/models/Film";
-import type { PaginationType } from "@/store/models/Pagination";
+import { Text } from "@/shared/components/Text";
+import { FilmsInfiniteList } from "@/shared/components/FilmsInfiniteList";
+import type { FilmType } from "@/shared/store/models/Film";
+import type { PaginationType } from "@/shared/store/models/Pagination";
 
 import styles from "../RecommendationsPage.module.scss";
 
@@ -30,11 +30,17 @@ export const RecommendationsClient = ({ initialFilms, initialPagination }: Props
                 </Text>
             </div>
 
-            <FilmsInfiniteList
-                initialFilms={initialFilms}
-                initialPagination={initialPagination}
-                filters={{ isFeatured: true }}
-            />
+            {initialPagination.total === 0 ? (
+                <Text view="p-20" color="secondary">
+                    Пока нет рекомендованных фильмов.
+                </Text>
+            ) : (
+                <FilmsInfiniteList
+                    initialFilms={initialFilms}
+                    initialPagination={initialPagination}
+                    filters={{ isFeatured: true }}
+                />
+            )}
         </>
     );
 };

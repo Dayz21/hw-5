@@ -1,4 +1,4 @@
-import { Text } from "@/components/Text";
+import { Text } from "@/shared/components/Text";
 import { CollectionsSkeleton } from "./_components/CollectionsSkeleton";
 
 import styles from "./CollectionsPage.module.scss";

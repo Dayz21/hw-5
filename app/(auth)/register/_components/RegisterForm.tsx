@@ -3,12 +3,12 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Input } from "@/components/Input";
-import { Button } from "@/components/Button";
-import { Text } from "@/components/Text";
-import { ROUTES } from "@/config/routes";
-import { AuthAPI } from "@/api/AuthAPI";
-import { rootStore } from "@/store/rootStore";
+import { Input } from "@/shared/components/Input";
+import { Button } from "@/shared/components/Button";
+import { Text } from "@/shared/components/Text";
+import { ROUTES } from "@/shared/config/routes";
+import { AuthAPI } from "@/shared/api/AuthAPI";
+import { rootStore } from "@/shared/store/rootStore";
 
 import styles from "../../Auth.module.scss";
 
@@ -22,9 +22,12 @@ export function RegisterForm() {
         try {
             await AuthAPI.register({ username, email, password });
             await rootStore.userStore.fetchMe();
+            await rootStore.favoritesStore.fetchFavorites();
             router.push(ROUTES.films.get());
-        } catch (error) {
-            console.error("Registration error:", error);
+        } catch (error: any) {
+            const message =
+                error?.response?.data?.error?.message ?? "Ошибка регистрации. Проверьте данные.";
+            rootStore.toastStore.show(message, "error");
         }
     };
 

@@ -1,9 +1,9 @@
-import { CardSkeleton } from "@/components/Card";
-import { COUNT_OF_FILMS_ON_PAGE } from "@/config/config";
-import { Text } from "@/components/Text";
+import { CardSkeleton } from "@/shared/components/Card";
+import { COUNT_OF_FILMS_ON_PAGE } from "@/shared/config/config";
+import { Text } from "@/shared/components/Text";
 
 import pageStyles from "../FilmsPage.module.scss";
-import listStyles from "@/components/FilmsInfiniteList/FilmsInfiniteList.module.scss";
+import listStyles from "@components/FilmsInfiniteList/FilmsInfiniteList.module.scss";
 
 export const FilmsListSkeleton = () => (
     <>

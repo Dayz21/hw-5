@@ -2,13 +2,13 @@
 
 import { useEffect } from "react";
 import { observer } from "mobx-react-lite";
-import { useLocalStore } from "@/hooks/useLocalStore";
-import { CollectionsStore } from "@/store/CollectionsStore";
-import type { CategoryType } from "@/store/models/Category";
+import { useLocalStore } from "@/shared/hooks/useLocalStore";
+import { CollectionsStore } from "@/shared/store/CollectionsStore";
+import type { CategoryType } from "@/shared/store/models/Category";
 import { CategorySection } from "./CategorySection";
 
 import styles from "../CollectionsPage.module.scss";
-import { Text } from "@/components/Text";
+import { Text } from "@/shared/components/Text";
 
 type Props = {
     categories: CategoryType[];

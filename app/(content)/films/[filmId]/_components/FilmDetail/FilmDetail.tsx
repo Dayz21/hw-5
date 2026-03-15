@@ -3,15 +3,15 @@
 import { useEffect } from "react";
 import { observer } from "mobx-react-lite";
 import { useRouter } from "next/navigation";
-import { StarIcon } from "@/components/Icons/StarIcon/StarIcon";
-import { Text } from "@/components/Text";
-import { getFormattedTime } from "@/utils/getFormattedTime";
-import { VideoFrame } from "@/components/VideoFrame";
-import { FilmsCarousel } from "@/components/FilmsCarousel";
-import { Button } from "@/components/Button";
-import { rootStore } from "@/store/rootStore";
-import { ROUTES } from "@/config/routes";
-import type { FilmType } from "@/store/models/Film";
+import { StarIcon } from "@/shared/components/Icons/StarIcon/StarIcon";
+import { Text } from "@/shared/components/Text";
+import { getFormattedTime } from "@/shared/utils/getFormattedTime";
+import { VideoFrame } from "@/shared/components/VideoFrame";
+import { FilmsCarousel } from "@/shared/components/FilmsCarousel";
+import { Button } from "@/shared/components/Button";
+import { rootStore } from "@/shared/store/rootStore";
+import { ROUTES } from "@/shared/config/routes";
+import type { FilmType } from "@/shared/store/models/Film";
 import { BackButton } from "../BackButton/BackButton";
 import { ImagesSlider } from "../ImagesSlider/ImagesSlider";
 
@@ -25,11 +25,12 @@ type Props = {
 const FilmActions = observer(({ filmId }: { filmId: number }) => {
     if (!rootStore.userStore.isAuthorized) return null;
     return (
-        <div className={styles.actions}>
-            <Button onClick={() => rootStore.favoritesStore.toggleFavorite(filmId)} outlined>
-                {rootStore.favoritesStore.contains(filmId) ? "В избранном" : "В избранное"}
-            </Button>
-        </div>
+        <Button
+            onClick={() => rootStore.favoritesStore.toggleFavorite(filmId)}
+            outlined={!rootStore.favoritesStore.contains(filmId)}
+        >
+            {rootStore.favoritesStore.contains(filmId) ? "В избранном" : "В избранное"}
+        </Button>
     );
 });
 
@@ -40,11 +41,17 @@ export function FilmDetail({ film, recommendations }: Props) {
         window.scrollTo({ top: 0, behavior: "smooth" });
     }, [film.documentId]);
 
+    const handleShare = () => {
+        navigator.clipboard.writeText(window.location.href).then(() => {
+            rootStore.toastStore.show("Ссылка скопирована!");
+        });
+    };
+
     return (
         <>
             <BackButton
                 className={styles.back_button}
-                onClick={() => router.push(ROUTES.films.get())}
+                onClick={() => (window.history.length > 1 ? router.back() : router.push(ROUTES.films.get()))}
             />
 
             <div className={styles.film}>
@@ -63,7 +70,12 @@ export function FilmDetail({ film, recommendations }: Props) {
                         </div>
                     </div>
 
-                    <FilmActions filmId={film.id} />
+                    <div className={styles.actions}>
+                        <FilmActions filmId={film.id} />
+                        <Button outlined onClick={handleShare}>
+                            Поделиться
+                        </Button>
+                    </div>
 
                     <div className={styles.brief}>
                         <Text view="p-20" weight="medium">

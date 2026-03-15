@@ -3,12 +3,12 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Input } from "@/components/Input";
-import { Button } from "@/components/Button";
-import { Text } from "@/components/Text";
-import { ROUTES } from "@/config/routes";
-import { AuthAPI } from "@/api/AuthAPI";
-import { rootStore } from "@/store/rootStore";
+import { Input } from "@/shared/components/Input";
+import { Button } from "@/shared/components/Button";
+import { Text } from "@/shared/components/Text";
+import { ROUTES } from "@/shared/config/routes";
+import { AuthAPI } from "@/shared/api/AuthAPI";
+import { rootStore } from "@/shared/store/rootStore";
 
 import styles from "../../Auth.module.scss";
 
@@ -21,9 +21,12 @@ export function LoginForm() {
         try {
             await AuthAPI.login(identifier, password);
             await rootStore.userStore.fetchMe();
+            await rootStore.favoritesStore.fetchFavorites();
             router.push(ROUTES.films.get());
-        } catch (error) {
-            console.error("Login error:", error);
+        } catch (error: any) {
+            const message =
+                error?.response?.data?.error?.message ?? "Неверный логин или пароль";
+            rootStore.toastStore.show(message, "error");
         }
     };
 

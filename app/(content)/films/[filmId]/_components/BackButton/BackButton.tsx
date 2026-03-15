@@ -1,7 +1,7 @@
 "use client";
 
-import { Text } from "@/components/Text";
-import { ArrowRightIcon } from "@/components/Icons/ArrowRightIcon";
+import { Text } from "@/shared/components/Text";
+import { ArrowRightIcon } from "@/shared/components/Icons/ArrowRightIcon";
 import classNames from "classnames";
 
 import styles from "./BackButton.module.scss";

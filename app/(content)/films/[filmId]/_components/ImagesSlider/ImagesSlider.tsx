@@ -3,8 +3,8 @@
 import { useRef } from "react";
 import type { Swiper as SwiperType } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { BackControlButton, FrontControlButton } from "@/components/CarouselControls";
-import { Image } from "@/components/Image";
+import { BackControlButton, FrontControlButton } from "@/shared/components/CarouselControls";
+import { Image } from "@/shared/components/Image";
 
 import "swiper/css";
 import styles from "./ImagesSlider.module.scss";

@@ -2,15 +2,15 @@
 
 import { observer } from "mobx-react-lite";
 import { useRouter } from "next/navigation";
-import { Text } from "@/components/Text";
-import { Button } from "@/components/Button";
-import { Card } from "@/components/Card";
+import { Text } from "@/shared/components/Text";
+import { Button } from "@/shared/components/Button";
+import { Card } from "@/shared/components/Card";
 import { FavoritesSkeleton } from "./FavoritesSkeleton";
-import { ROUTES } from "@/config/routes";
-import { rootStore } from "@/store/rootStore";
+import { ROUTES } from "@/shared/config/routes";
+import { rootStore } from "@/shared/store/rootStore";
 
 import styles from "../FavoritesPage.module.scss";
-import listStyles from "@/components/FilmsInfiniteList/FilmsInfiniteList.module.scss";
+import listStyles from "@components/FilmsInfiniteList/FilmsInfiniteList.module.scss";
 
 export const FavoritesClient = observer(() => {
     const router = useRouter();
@@ -75,7 +75,6 @@ export const FavoritesClient = observer(() => {
                         <Card key={film.documentId} film={film}>
                             <Button
                                 onClick={() => rootStore.favoritesStore.toggleFavorite(film.id)}
-                                outlined
                             >
                                 В избранном
                             </Button>

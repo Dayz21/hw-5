@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { serverFetchCategories } from "@/api/server/ServerCategoriesAPI";
+import { serverFetchCategories } from "@/shared/api/server/ServerCategoriesAPI";
 import { CollectionsClient } from "./_components/CollectionsClient";
 
 export const metadata: Metadata = {

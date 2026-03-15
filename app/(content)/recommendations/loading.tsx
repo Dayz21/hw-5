@@ -1,4 +1,4 @@
-import { Text } from "@/components/Text";
+import { Text } from "@/shared/components/Text";
 import { RecommendationsSkeleton } from "./_components/RecommendationsSkeleton";
 
 import styles from "./RecommendationsPage.module.scss";

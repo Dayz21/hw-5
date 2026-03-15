@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { serverFetchFilmById, serverFetchFilms } from "@/api/server/ServerFilmsAPI";
-import { COUNT_OF_RECOMMENDATIONS } from "@/config/config";
+import { serverFetchFilmById, serverFetchFilms } from "@/shared/api/server/ServerFilmsAPI";
+import { COUNT_OF_RECOMMENDATIONS } from "@/shared/config/config";
 import { FilmDetail } from "./_components/FilmDetail";
 
 export async function generateMetadata({

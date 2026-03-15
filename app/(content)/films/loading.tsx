@@ -1,4 +1,4 @@
-import { Text } from "@/components/Text";
+import { Text } from "@/shared/components/Text";
 import { FiltersBarSkeleton } from "./_components/FiltersBar";
 import { FilmsListSkeleton } from "./_components/FilmsListSkeleton";
 

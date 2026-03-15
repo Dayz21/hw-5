@@ -1,1 +1,1 @@
-export { FilmsInfiniteList } from "@/components/FilmsInfiniteList";
+export { FilmsInfiniteList } from "@/shared/components/FilmsInfiniteList";

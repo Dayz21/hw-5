@@ -30,3 +30,6 @@ export const AGE_LIMIT_OPTIONS: { key: string; value: string }[] = [
     { key: "16", value: "16+" },
     { key: "18", value: "18+" },
 ];
+
+export const AI_MODEL = "claude-sonnet-4-6";
+export const AI_MAX_TOKENS = 512;

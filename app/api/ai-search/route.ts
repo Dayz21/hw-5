@@ -7,22 +7,29 @@ import { logger } from "@/shared/utils/logger";
 import { SYSTEM_PROMPT } from "./system_prompt";
 import type { FilmFiltersType } from "@/shared/api/types/Film";
 import type { Option } from "@/shared/components/MultiDropdown/MultiDropdown";
-import { AGE_LIMIT_OPTIONS, COUNT_OF_FILMS_ON_PAGE } from "@config/config";
+import { AGE_LIMIT_OPTIONS, AI_MAX_TOKENS, AI_MODEL, COUNT_OF_FILMS_ON_PAGE } from "@config/config";
+import { z } from "zod";
 
 const client = new Anthropic({
     baseURL: "https://litellm.tokengate.ru",
     apiKey: process.env.ANTHROPIC_API_KEY!,
 });
 
-type AIFilters = {
-    search?: string;
-    yearFrom?: number;
-    yearTo?: number;
-    ratingFrom?: number;
-    ratingTo?: number;
-    categoryNames?: string[];
-    ageLimits?: number[];
-};
+const maxYear = new Date().getFullYear() + 1;
+
+const AIFiltersSchema = z
+    .object({
+        search: z.string().max(100).optional(),
+        yearFrom: z.number().min(1900).max(maxYear).optional(),
+        yearTo: z.number().min(1900).max(maxYear).optional(),
+        ratingFrom: z.number().min(0).max(10).optional(),
+        ratingTo: z.number().min(0).max(10).optional(),
+        categoryNames: z.array(z.string()).optional(),
+        ageLimits: z.array(z.enum(["0", "6", "12", "16", "18"]).transform(Number)).optional(),
+    })
+    .strict();
+
+type AIFilters = z.infer<typeof AIFiltersSchema>;
 
 export async function POST(request: Request) {
     try {
@@ -41,7 +48,7 @@ export async function POST(request: Request) {
             );
         }
 
-        const model = "claude-sonnet-4-6";
+        const model = AI_MODEL;
         const modelRequestStartedAt = Date.now();
         logger.debug("Calling AI model for search", {
             model,
@@ -53,7 +60,7 @@ export async function POST(request: Request) {
         try {
             message = await client.messages.create({
                 model,
-                max_tokens: 512,
+                max_tokens: AI_MAX_TOKENS,
                 system:
                     SYSTEM_PROMPT +
                     "\nCategories available: " +

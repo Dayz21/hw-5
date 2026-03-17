@@ -10,15 +10,15 @@ import { AccountOptionSelector } from "./AccountOptionSelector";
 import { ROUTES } from "@/shared/config/routes";
 import { rootStore } from "@/shared/store/rootStore";
 import type { ThemePreference } from "@/shared/store/rootStore/userStore";
-import type { NotificationPreference } from "@/shared/store/rootStore/toastStore";
+import { NotificationPreference } from "@/shared/store/rootStore/toastStore";
 import type { AccountOption } from "./AccountOptionSelector";
 
 import styles from "../AccountPage.module.scss";
 
 const notificationOptions: AccountOption<NotificationPreference>[] = [
-    { value: "all", label: "Все" },
-    { value: "errors", label: "Только ошибки" },
-    { value: "disabled", label: "Отключены" },
+    { value: NotificationPreference.ALL, label: "Все" },
+    { value: NotificationPreference.ONLY_ERRORS, label: "Только ошибки" },
+    { value: NotificationPreference.DISABLED, label: "Отключены" },
 ];
 
 const themeOptions: AccountOption<ThemePreference>[] = [

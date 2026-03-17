@@ -2,7 +2,6 @@ import { action, computed, makeObservable, observable } from "mobx";
 import { STORAGE_KEYS } from "@/shared/config/config";
 
 export type ToastType = "success" | "error";
-export type NotificationPreference = "all" | "errors" | "disabled";
 
 export type Toast = {
     id: number;
@@ -10,9 +9,15 @@ export type Toast = {
     type: ToastType;
 };
 
+export enum NotificationPreference {
+    ALL = "all",
+    ONLY_ERRORS = "errors",
+    DISABLED = "disabled",
+}
+
 export class ToastStore {
     toasts: Toast[] = [];
-    private _notificationPreference: NotificationPreference = "all";
+    private _notificationPreference: NotificationPreference = NotificationPreference.ALL;
     private _nextId = 0;
 
     constructor() {
@@ -33,31 +38,39 @@ export class ToastStore {
 
     private hydrateNotificationPreference() {
         if (typeof window === "undefined") {
-            this._notificationPreference = "errors";
+            this._notificationPreference = NotificationPreference.ONLY_ERRORS;
             return;
         }
 
-        const preference = localStorage.getItem(STORAGE_KEYS.notificationPreference);
+        const preference = localStorage.getItem(
+            STORAGE_KEYS.notificationPreference,
+        ) as NotificationPreference | null;
 
-        if (preference === "all" || preference === "errors" || preference === "disabled") {
+        if (preference !== null && preference in NotificationPreference) {
             this._notificationPreference = preference;
             return;
         }
 
-        this._notificationPreference = "errors";
+        this._notificationPreference = NotificationPreference.ONLY_ERRORS;
     }
 
     private getNotificationPreferenceFromStorage(): NotificationPreference {
         if (typeof window === "undefined") {
-            return "all";
+            return NotificationPreference.ONLY_ERRORS;
         }
 
-        const preference = localStorage.getItem(STORAGE_KEYS.notificationPreference);
-        if (preference === "all" || preference === "errors" || preference === "disabled") {
+        const preference = localStorage.getItem(
+            STORAGE_KEYS.notificationPreference,
+        ) as NotificationPreference | null;
+        if (
+            preference === NotificationPreference.ALL ||
+            preference === NotificationPreference.ONLY_ERRORS ||
+            preference === NotificationPreference.DISABLED
+        ) {
             return preference;
         }
 
-        return "errors";
+        return NotificationPreference.ONLY_ERRORS;
     }
 
     setNotificationPreference(preference: NotificationPreference) {
@@ -70,11 +83,11 @@ export class ToastStore {
     show(message: string, type: ToastType = "success") {
         const preference = this.getNotificationPreferenceFromStorage();
 
-        if (preference === "disabled") {
+        if (preference === NotificationPreference.DISABLED) {
             return;
         }
 
-        if (preference === "errors" && type !== "error") {
+        if (preference === NotificationPreference.ONLY_ERRORS && type !== "error") {
             return;
         }
 

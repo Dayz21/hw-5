@@ -28,6 +28,7 @@
     top: 0;
     left: 0;
     z-index: 100;
+    transition: background-color 0.3s, border-color 0.3s;
     background-color: colors.$bg-color;
     border-bottom: 2px solid colors.$menu-border-color;
     padding: 0;

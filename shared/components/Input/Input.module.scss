@@ -14,7 +14,7 @@
     border: 1px solid colors.$input-border-color;
     border-radius: variables.$border-radius;
 
-    transition: border-color 0.3s;
+    transition: background-color 0.3s, border-color 0.3s;
 
     &:focus-within {
         border-color: colors.$accent-color;

@@ -4,7 +4,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: color 0.3s;
+
+    & path {
+        transition: stroke 0.3s;
+    }
 
     &.primary path {
         stroke: colors.$primary-text-color;

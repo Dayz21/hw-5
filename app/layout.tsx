@@ -4,6 +4,7 @@ import "@styles/page.scss";
 import "./globals.scss";
 import { AppInit } from "./_components/AppInit";
 import { ToastContainer } from "@/shared/components/Toast/ToastContainer";
+import BackgroundEffect from "./_components/BackgroundEffect/BackgroundEffect";
 
 const roboto = Roboto({
     weight: ["400", "500", "700"],
@@ -35,6 +36,7 @@ export default function RootLayout({
             <body className={roboto.className}>
                 <AppInit />
                 <ToastContainer />
+                <BackgroundEffect />
                 {children}
             </body>
         </html>

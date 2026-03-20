@@ -14,6 +14,7 @@ import type { PaginationType } from "@/shared/store/models/Pagination";
 import type { FilmFiltersType } from "@/shared/api/types/Film";
 
 import styles from "./FilmsInfiniteList.module.scss";
+import { IntersectAnimation } from "../IntersectAnimation/IntersectAnimation";
 
 type Props = {
     initialFilms: FilmType[];
@@ -69,14 +70,15 @@ export const FilmsInfiniteList = observer(({ initialFilms, initialPagination, fi
         <>
             <div className={styles.films}>
                 {allFilms.map((film) => (
-                    <Card
-                        key={film.documentId}
-                        film={film}
-                        onClick={() => handleFilmClick(film.documentId)}
-                    >
-                        {isAuthorized && <FavoriteButton filmId={film.id} />}
-                        <Button onClick={() => handleFilmClick(film.documentId)}>Смотреть</Button>
-                    </Card>
+                    <IntersectAnimation key={film.documentId}>
+                        <Card
+                            film={film}
+                            onClick={() => handleFilmClick(film.documentId)}
+                        >
+                            {isAuthorized && <FavoriteButton filmId={film.id} />}
+                            <Button onClick={() => handleFilmClick(film.documentId)}>Смотреть</Button>
+                        </Card>
+                    </IntersectAnimation>
                 ))}
             </div>
 

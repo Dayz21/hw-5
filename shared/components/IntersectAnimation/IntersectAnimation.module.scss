@@ -1,0 +1,12 @@
+.container {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(100px);
+    transition: transform .3s, opacity .3s;
+
+    &.active {
+        pointer-events: all;
+        opacity: 1;
+        transform: none;
+    }
+}

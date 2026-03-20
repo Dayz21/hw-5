@@ -1,0 +1,18 @@
+.back_button {
+    background-color: transparent;
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0;
+    cursor: pointer;
+    transition: transform 0.3s;
+
+    &:active {
+        transform: scale(0.95);
+    }
+}
+
+.back_button_text {
+    padding: 12px 13px;
+}

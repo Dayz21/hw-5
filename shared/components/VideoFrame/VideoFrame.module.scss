@@ -1,0 +1,18 @@
+@use "@styles/colors";
+@use "@styles/variables";
+@use "@styles/mixins";
+
+.video_frame {
+    border: none;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: variables.$border-radius;
+    background-color: colors.$skeleton-bg-color;
+}
+
+.video_frame_skeleton {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: variables.$border-radius;
+    @include mixins.skeleton;
+}

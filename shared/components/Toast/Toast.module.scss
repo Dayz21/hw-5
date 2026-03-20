@@ -1,0 +1,40 @@
+@use "@styles/colors";
+
+.container {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    pointer-events: none;
+}
+
+.toast {
+    padding: 14px 20px;
+    border-radius: 10px;
+    pointer-events: all;
+    cursor: pointer;
+    max-width: 340px;
+    animation: slideIn 0.2s ease;
+}
+
+.success {
+    background-color: colors.$success;
+}
+
+.error {
+    background-color: colors.$error;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}

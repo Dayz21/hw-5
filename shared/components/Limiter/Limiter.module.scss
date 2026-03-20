@@ -1,0 +1,15 @@
+@use "@styles/variables";
+@use "@styles/mixins";
+
+.limiter {
+    @include mixins.adaptive(
+        padding,
+        0 variables.$s-spacing,
+        0 variables.$l-spacing,
+        0 variables.$xl-spacing,
+        0 variables.$xxl-spacing
+    );
+    margin: 0 auto;
+    max-width: 1440px;
+    width: 100%;
+}

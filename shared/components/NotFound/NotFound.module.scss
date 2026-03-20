@@ -1,0 +1,13 @@
+@use "@styles/variables";
+
+.not_found_container {
+    display: flex;
+    flex-direction: column;
+    gap: variables.$xs-spacing;
+    align-items: start;
+    margin-top: variables.$l-spacing;
+}
+
+.all_films {
+    margin-top: variables.$s-spacing;
+}

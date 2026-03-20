@@ -1,0 +1,34 @@
+@use "@styles/variables";
+@use "@styles/mixins";
+
+.title {
+    margin-top: variables.$xl-spacing;
+    margin-bottom: variables.$s-spacing;
+}
+
+.subtitle {
+    margin-bottom: variables.$l-spacing;
+}
+
+.favorites_title {
+    display: flex;
+    align-items: center;
+    gap: variables.$s-spacing;
+    margin-bottom: variables.$m-spacing;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    margin-top: variables.$xl-spacing;
+}
+
+.empty {
+    margin-top: variables.$xl-spacing;
+}
+
+.actions {
+    display: flex;
+    gap: variables.$s-spacing;
+    margin-top: variables.$m-spacing;
+}

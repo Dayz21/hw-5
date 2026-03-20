@@ -1,0 +1,13 @@
+.retractable {
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.3s;
+
+    .container {
+        min-width: 0;
+        overflow: hidden;
+    }
+
+    &.active {
+        grid-template-rows: 1fr;
+    }
+}

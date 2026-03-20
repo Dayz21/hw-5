@@ -1,0 +1,61 @@
+@use "@styles/colors";
+@use "@styles/variables";
+@use "@styles/mixins";
+
+.input_container {
+    display: flex;
+    gap: variables.$xxs-spacing;
+    align-items: center;
+    padding: 14px 11px;
+    min-width: 200px;
+    cursor: text;
+
+    background-color: colors.$input-bg-color;
+    border: 1px solid colors.$input-border-color;
+    border-radius: variables.$border-radius;
+
+    transition: background-color 0.3s, border-color 0.3s;
+
+    &:focus-within {
+        border-color: colors.$accent-color;
+    }
+
+    &.disabled {
+        background-color: colors.$input-disabled-bg-color;
+        border-color: colors.$input-disabled-border-color;
+    }
+}
+
+.input {
+    color: colors.$primary-text-color;
+    background-color: transparent;
+    outline: none;
+    appearance: none;
+    border: none;
+    min-width: 0;
+    flex: 1 1 auto;
+    font-size: 16px;
+    line-height: 20px;
+
+    &::placeholder {
+        color: colors.$input-placeholder-color;
+    }
+
+    &:disabled {
+        color: colors.$input-disabled-text-color;
+    }
+}
+
+.after_slot {
+    flex: 0 0 auto;
+}
+
+.with_after_slot {
+    padding: 13px 11px;
+}
+
+.label {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}

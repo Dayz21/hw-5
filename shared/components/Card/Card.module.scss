@@ -1,0 +1,78 @@
+@use "@styles/colors";
+@use "@styles/variables";
+
+.card {
+    background-color: colors.$card-bg-color;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    border: 1px solid colors.$card-bg-color;
+    transition:
+        background-color 0.3s,
+        border-color 0.3s;
+    overflow: hidden;
+    border-radius: variables.$border-radius;
+    height: variables.$card-height;
+
+    &:hover {
+        background-color: colors.$card-hover-bg-color;
+        border-color: colors.$card-border-color;
+    }
+}
+
+.rating,
+.timing {
+    padding: 2px 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: absolute;
+    top: 12px;
+    border-radius: 12px;
+    transition: background-color 0.3s;
+    background-color: colors.$card-hint-color;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.rating {
+    left: 12px;
+}
+
+.timing {
+    right: 12px;
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    gap: variables.$s-spacing;
+    padding: variables.$m-spacing variables.$xs-spacing;
+    flex: 1 1 auto;
+}
+
+.info_header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: variables.$xxs-spacing;
+    margin-bottom: 20px;
+}
+
+.title {
+    margin-bottom: 12px;
+}
+
+.actions {
+    display: flex;
+    align-items: center;
+    gap: variables.$xxs-spacing;
+}
+
+.actions * {
+    flex: 1 1 auto;
+}
+
+.info_container {
+    flex: 1 1 auto;
+}

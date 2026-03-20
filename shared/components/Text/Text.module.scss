@@ -1,0 +1,96 @@
+@use "@styles/colors";
+
+.text {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition:
+        color 0.3s,
+        font-weight 0.3s,
+        font-size 0.3s;
+    text-decoration: none;
+}
+
+.title {
+    font-size: 44px;
+    line-height: 48px;
+}
+
+.subtitle {
+    font-size: 32px;
+    line-height: 36px;
+}
+
+.button {
+    font-size: 18px;
+    line-height: 18px;
+    color: colors.$button-text-color;
+}
+
+.button-thin {
+    font-size: 16px;
+    line-height: 16px;
+    color: colors.$button-text-color;
+}
+
+.p-24 {
+    font-size: 24px;
+    line-height: 32px;
+}
+
+.p-20 {
+    font-size: 20px;
+    line-height: 24px;
+}
+
+.p-18 {
+    font-size: 18px;
+    line-height: 22px;
+}
+
+.p-16 {
+    font-size: 16px;
+    line-height: 20px;
+}
+
+.p-14 {
+    font-size: 14px;
+    line-height: 18px;
+}
+
+.normal {
+    font-weight: 400;
+}
+
+.medium {
+    font-weight: 500;
+}
+
+.bold {
+    font-weight: 700;
+}
+
+.primary {
+    color: colors.$primary-text-color;
+}
+
+.secondary {
+    color: colors.$secondary-text-color;
+}
+
+.accent {
+    color: colors.$accent-text-color;
+}
+
+.left {
+    text-align: left;
+}
+
+.center {
+    text-align: center;
+}
+
+.right {
+    text-align: right;
+}

@@ -1,0 +1,10 @@
+@use "@styles/colors";
+
+.container {
+    position: relative;
+}
+
+.empty {
+    padding: 20px 0;
+    color: colors.$secondary-text-color;
+}

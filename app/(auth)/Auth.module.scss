@@ -1,0 +1,20 @@
+@use "@styles/variables";
+@use "@styles/mixins";
+
+.auth_page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100vh;
+    gap: variables.$m-spacing;
+    max-width: 440px;
+    margin: 0 auto;
+
+    padding: 0 variables.$m-spacing;
+}
+
+.auth_inputs {
+    display: flex;
+    flex-direction: column;
+    gap: variables.$xs-spacing;
+}

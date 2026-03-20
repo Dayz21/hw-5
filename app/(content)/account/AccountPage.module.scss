@@ -1,0 +1,66 @@
+@use "@styles/variables";
+@use "@styles/colors";
+@use "@styles/mixins";
+
+.title {
+    margin-top: variables.$xl-spacing;
+    margin-bottom: variables.$s-spacing;
+}
+
+.subtitle {
+    margin-bottom: variables.$l-spacing;
+}
+
+.card {
+    display: grid;
+    gap: variables.$s-spacing;
+    padding: variables.$l-spacing;
+
+    @include mixins.adaptive(
+        padding,
+        variables.$s-spacing,
+        variables.$m-spacing,
+        variables.$l-spacing,
+        variables.$l-spacing
+    );
+
+    border-radius: variables.$border-radius;
+    background-color: colors.$card-bg-color;
+    border: 1px solid colors.$card-border-color;
+}
+
+.item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: variables.$m-spacing;
+    flex-wrap: wrap;
+}
+
+.item_label {
+    flex: 0 1 auto;
+}
+
+.item_value {
+    margin-left: auto;
+    max-width: 100%;
+}
+
+.notifications_controls {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: variables.$xxs-spacing;
+}
+
+.actions {
+    display: flex;
+    gap: variables.$s-spacing;
+    margin-top: variables.$m-spacing;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    margin-top: variables.$xl-spacing;
+}
